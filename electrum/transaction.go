@@ -7,7 +7,7 @@ import "context"
 // https://electrumx.readthedocs.io/en/latest/protocol-methods.html#blockchain-transaction-broadcast
 func (s *Client) BroadcastTransaction(ctx context.Context, rawTx string) (string, error) {
 	resp := &basicResp{}
-	err := s.request(ctx, "blockchain.transaction.broadcast", []interface{}{rawTx}, &resp)
+	err := s.Request(ctx, "blockchain.transaction.broadcast", []interface{}{rawTx}, &resp)
 	if err != nil {
 		return "", err
 	}
@@ -72,7 +72,7 @@ type ScriptPubkey struct {
 func (s *Client) GetTransaction(ctx context.Context, txHash string) (*GetTransactionResult, error) {
 	var resp GetTransactionResp
 
-	err := s.request(ctx, "blockchain.transaction.get", []interface{}{txHash, true}, &resp)
+	err := s.Request(ctx, "blockchain.transaction.get", []interface{}{txHash, true}, &resp)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (s *Client) GetTransaction(ctx context.Context, txHash string) (*GetTransac
 func (s *Client) GetRawTransaction(ctx context.Context, txHash string) (string, error) {
 	var resp basicResp
 
-	err := s.request(ctx, "blockchain.transaction.get", []interface{}{txHash, false}, &resp)
+	err := s.Request(ctx, "blockchain.transaction.get", []interface{}{txHash, false}, &resp)
 	if err != nil {
 		return "", err
 	}
@@ -110,7 +110,7 @@ type GetMerkleProofResult struct {
 func (s *Client) GetMerkleProof(ctx context.Context, txHash string, height uint32) (*GetMerkleProofResult, error) {
 	var resp GetMerkleProofResp
 
-	err := s.request(ctx, "blockchain.transaction.get_merkle", []interface{}{txHash, height}, &resp)
+	err := s.Request(ctx, "blockchain.transaction.get_merkle", []interface{}{txHash, height}, &resp)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ func (s *Client) GetMerkleProof(ctx context.Context, txHash string, height uint3
 func (s *Client) GetHashFromPosition(ctx context.Context, height, position uint32) (string, error) {
 	var resp basicResp
 
-	err := s.request(ctx, "blockchain.transaction.id_from_pos", []interface{}{height, position, false}, &resp)
+	err := s.Request(ctx, "blockchain.transaction.id_from_pos", []interface{}{height, position, false}, &resp)
 	if err != nil {
 		return "", err
 	}
@@ -148,7 +148,7 @@ type GetMerkleProofFromPosResult struct {
 func (s *Client) GetMerkleProofFromPosition(ctx context.Context, height, position uint32) (*GetMerkleProofFromPosResult, error) {
 	var resp GetMerkleProofFromPosResp
 
-	err := s.request(ctx, "blockchain.transaction.id_from_pos", []interface{}{height, position, true}, &resp)
+	err := s.Request(ctx, "blockchain.transaction.id_from_pos", []interface{}{height, position, true}, &resp)
 	if err != nil {
 		return nil, err
 	}

@@ -6,7 +6,7 @@ import "context"
 // keeping the session alive.
 // https://electrumx.readthedocs.io/en/latest/protocol-methods.html#server-ping
 func (s *Client) Ping(ctx context.Context) error {
-	err := s.request(ctx, "server.ping", []interface{}{}, nil)
+	err := s.Request(ctx, "server.ping", []interface{}{}, nil)
 
 	return err
 }
@@ -17,7 +17,7 @@ func (s *Client) Ping(ctx context.Context) error {
 func (s *Client) ServerAddPeer(ctx context.Context, features *ServerFeaturesResult) error {
 	var resp basicResp
 
-	err := s.request(ctx, "server.add_peer", []interface{}{features}, &resp)
+	err := s.Request(ctx, "server.add_peer", []interface{}{features}, &resp)
 
 	return err
 }
@@ -27,7 +27,7 @@ func (s *Client) ServerAddPeer(ctx context.Context, features *ServerFeaturesResu
 func (s *Client) ServerBanner(ctx context.Context) (string, error) {
 	var resp basicResp
 
-	err := s.request(ctx, "server.banner", []interface{}{}, &resp)
+	err := s.Request(ctx, "server.banner", []interface{}{}, &resp)
 
 	return resp.Result, err
 }
@@ -37,7 +37,7 @@ func (s *Client) ServerBanner(ctx context.Context) (string, error) {
 func (s *Client) ServerDonation(ctx context.Context) (string, error) {
 	var resp basicResp
 
-	err := s.request(ctx, "server.donation_address", []interface{}{}, &resp)
+	err := s.Request(ctx, "server.donation_address", []interface{}{}, &resp)
 
 	return resp.Result, err
 }
@@ -69,7 +69,7 @@ type ServerFeaturesResult struct {
 func (s *Client) ServerFeatures(ctx context.Context) (*ServerFeaturesResult, error) {
 	var resp ServerFeaturesResp
 
-	err := s.request(ctx, "server.features", []interface{}{}, &resp)
+	err := s.Request(ctx, "server.features", []interface{}{}, &resp)
 
 	return resp.Result, err
 }
@@ -80,7 +80,7 @@ func (s *Client) ServerPeers(ctx context.Context) (interface{}, error) {
 	resp := &struct {
 		Result [][]interface{} `json:"result"`
 	}{}
-	err := s.request(ctx, "server.peers.subscribe", []interface{}{}, &resp)
+	err := s.Request(ctx, "server.peers.subscribe", []interface{}{}, &resp)
 
 	return resp.Result, err
 }
@@ -96,7 +96,7 @@ type ServerVersionResp struct {
 func (s *Client) ServerVersion(ctx context.Context) (serverVer, protocolVer string, err error) {
 	var resp ServerVersionResp
 
-	err = s.request(ctx, "server.version", []interface{}{ClientVersion, ProtocolVersion}, &resp)
+	err = s.Request(ctx, "server.version", []interface{}{ClientVersion, ProtocolVersion}, &resp)
 	if err != nil {
 		serverVer = ""
 		protocolVer = ""

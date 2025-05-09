@@ -31,8 +31,8 @@ var (
 	// ErrServerShutdown throws an error if remote server has shutdown.
 	ErrServerShutdown = errors.New("server has shutdown")
 
-	// ErrTimeout throws an error if request has timed out
-	ErrTimeout = errors.New("request timeout")
+	// ErrTimeout throws an error if Request has timed out
+	ErrTimeout = errors.New("Request timeout")
 
 	// ErrNotImplemented throws an error if this RPC call has not been implemented yet.
 	ErrNotImplemented = errors.New("RPC call is not implemented")
@@ -197,7 +197,7 @@ type request struct {
 	Params []interface{} `json:"params"`
 }
 
-func (s *Client) request(ctx context.Context, method string, params []interface{}, v interface{}) error {
+func (s *Client) Request(ctx context.Context, method string, params []interface{}, v interface{}) error {
 	select {
 	case <-s.quit:
 		return ErrServerShutdown

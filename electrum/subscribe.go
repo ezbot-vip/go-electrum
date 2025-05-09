@@ -28,7 +28,7 @@ type SubscribeHeadersResult struct {
 func (s *Client) SubscribeHeaders(ctx context.Context) (<-chan *SubscribeHeadersResult, error) {
 	var resp SubscribeHeadersResp
 
-	err := s.request(ctx, "blockchain.headers.subscribe", []interface{}{}, &resp)
+	err := s.Request(ctx, "blockchain.headers.subscribe", []interface{}{}, &resp)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func (s *Client) SubscribeScripthash() (*ScripthashSubscription, <-chan *Subscri
 func (sub *ScripthashSubscription) Add(ctx context.Context, scripthash string, address ...string) error {
 	var resp basicResp
 
-	err := sub.server.request(ctx, "blockchain.scripthash.subscribe", []interface{}{scripthash}, &resp)
+	err := sub.server.Request(ctx, "blockchain.scripthash.subscribe", []interface{}{scripthash}, &resp)
 	if err != nil {
 		return err
 	}
@@ -217,7 +217,7 @@ func (sub *ScripthashSubscription) Resubscribe(ctx context.Context) error {
 func (s *Client) SubscribeMasternode(ctx context.Context, collateral string) (<-chan string, error) {
 	var resp basicResp
 
-	err := s.request(ctx, "blockchain.masternode.subscribe", []interface{}{collateral}, &resp)
+	err := s.Request(ctx, "blockchain.masternode.subscribe", []interface{}{collateral}, &resp)
 	if err != nil {
 		return nil, err
 	}

@@ -31,13 +31,13 @@ func (s *Client) GetBlockHeader(ctx context.Context, height uint32, checkpointHe
 		}
 
 		var resp GetBlockHeaderResp
-		err := s.request(ctx, "blockchain.block.header", []interface{}{height, checkpointHeight[0]}, &resp)
+		err := s.Request(ctx, "blockchain.block.header", []interface{}{height, checkpointHeight[0]}, &resp)
 
 		return resp.Result, err
 	}
 
 	var resp basicResp
-	err := s.request(ctx, "blockchain.block.header", []interface{}{height, 0}, &resp)
+	err := s.Request(ctx, "blockchain.block.header", []interface{}{height, 0}, &resp)
 	if err != nil {
 		return nil, err
 	}
@@ -78,9 +78,9 @@ func (s *Client) GetBlockHeaders(ctx context.Context, startHeight, count uint32,
 			return nil, ErrCheckpointHeight
 		}
 
-		err = s.request(ctx, "blockchain.block.headers", []interface{}{startHeight, count, checkpointHeight[0]}, &resp)
+		err = s.Request(ctx, "blockchain.block.headers", []interface{}{startHeight, count, checkpointHeight[0]}, &resp)
 	} else {
-		err = s.request(ctx, "blockchain.block.headers", []interface{}{startHeight, count, 0}, &resp)
+		err = s.Request(ctx, "blockchain.block.headers", []interface{}{startHeight, count, 0}, &resp)
 	}
 
 	if err != nil {

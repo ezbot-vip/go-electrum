@@ -18,7 +18,7 @@ type GetBalanceResult struct {
 func (s *Client) GetBalance(ctx context.Context, scripthash string) (GetBalanceResult, error) {
 	var resp GetBalanceResp
 
-	err := s.request(ctx, "blockchain.scripthash.get_balance", []interface{}{scripthash}, &resp)
+	err := s.Request(ctx, "blockchain.scripthash.get_balance", []interface{}{scripthash}, &resp)
 	if err != nil {
 		return GetBalanceResult{}, err
 	}
@@ -43,7 +43,7 @@ type GetMempoolResult struct {
 func (s *Client) GetHistory(ctx context.Context, scripthash string) ([]*GetMempoolResult, error) {
 	var resp GetMempoolResp
 
-	err := s.request(ctx, "blockchain.scripthash.get_history", []interface{}{scripthash}, &resp)
+	err := s.Request(ctx, "blockchain.scripthash.get_history", []interface{}{scripthash}, &resp)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (s *Client) GetHistory(ctx context.Context, scripthash string) ([]*GetMempo
 func (s *Client) GetMempool(ctx context.Context, scripthash string) ([]*GetMempoolResult, error) {
 	var resp GetMempoolResp
 
-	err := s.request(ctx, "blockchain.scripthash.get_mempool", []interface{}{scripthash}, &resp)
+	err := s.Request(ctx, "blockchain.scripthash.get_mempool", []interface{}{scripthash}, &resp)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ type ListUnspentResult struct {
 func (s *Client) ListUnspent(ctx context.Context, scripthash string) ([]*ListUnspentResult, error) {
 	var resp ListUnspentResp
 
-	err := s.request(ctx, "blockchain.scripthash.listunspent", []interface{}{scripthash}, &resp)
+	err := s.Request(ctx, "blockchain.scripthash.listunspent", []interface{}{scripthash}, &resp)
 	if err != nil {
 		return nil, err
 	}
